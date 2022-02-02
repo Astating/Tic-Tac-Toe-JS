@@ -1,0 +1,46 @@
+body {
+    height: 100vh;
+    background: radial-gradient(slategray, slategray, darkslategray);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+} 
+
+h1 {
+    color: gold;
+    text-shadow: 2px 2px 3px darkslategray, -2px -2px 3px darkslategray;
+    text-decoration: double underline 2px;
+    font-size: clamp(15px, 10vmin, 60px);
+    margin: 0 0 2vmin 0;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: goldenrod;
+    width: clamp(50px, 84vmin, 450px);
+    aspect-ratio: 1;
+    color: gold;
+}
+
+main > div {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: darkslategray;
+    font-size: 10vmin ;
+    margin: 1px;
+}
+
+@keyframes victory {
+    0% { transform: rotate3d(1,0,0,180deg); }
+    100% { transform: rotate3d(1,0,0,360deg); }
+}
+
+.win {
+    animation: victory 0.5s;
+}
