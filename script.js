@@ -1,7 +1,7 @@
 "use strict";
 
 const Gameboard = (()=>{
-    const _board = new Array(9).fill('⋅');
+    let _board = new Array(9).fill('⋅');
 
     const setCell = (index, marker) => {
         _board[index] = marker;
@@ -11,7 +11,7 @@ const Gameboard = (()=>{
         _board = new Array(9).fill('⋅');
     }
 
-    const getBoard = () => [..._board];
+    const getBoard = () => _board;
 
     const _displayBoard = () => {
         const boardDiv = document.querySelector("main");
@@ -21,6 +21,7 @@ const Gameboard = (()=>{
             div.id = `index-${idx}`;
             div.addEventListener("click", updateCell);
             boardDiv.appendChild(div);
+
         });
     }
     _displayBoard();
@@ -42,6 +43,7 @@ const Gameboard = (()=>{
         setCell,
         getBoard,
         resetBoard,
+        _displayBoard
     }
 })();
 
@@ -74,6 +76,17 @@ const gameFlow = (() => {
         return finishedGame;
     }
 
+    function reset() {
+        console.log("testest");
+        finishedGame = false;
+        Gameboard.resetBoard();
+        const parent = document.querySelector("main");
+        while (parent.firstChild) {
+            parent.firstChild.remove();
+        }
+        Gameboard._displayBoard();
+    }
+
     const checkForWin = (marker) => {
         const winCombinations = [
             [0, 1, 2],
@@ -96,11 +109,12 @@ const gameFlow = (() => {
             }});
     };
 
-    return {togglePlayer, getCurrentPlayer, checkForWin, isFinishedGame}
+    return {togglePlayer, getCurrentPlayer, checkForWin, isFinishedGame, reset}
 })();
 
 
 
 
+document.querySelector('button').addEventListener('click', gameFlow.reset);
 
 
