@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Tic Tac Toe</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Tic Tac Toe</h1>
-    <main></main>
-    <button>RESET</button>
+    <div class="game-wrapper">
+      <header class="players">
+        <p>Bobittybubblebernard</p>
+        <p>Fred</p>
+      </header>
+      <main></main>
+
+      <footer class="options">
+          <button>RESET</button>
+          <!-- Trigger/Open The Modal -->
+          <button id="myBtn">Options</button>
+      </footer>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <form action="">
+            <label for="player-1">Player 1: <input type="text" maxlength="20" id="player-1" name="player-1"/></label>
+            <label for="player-2">Player 2: <input type="text" maxlength="20" id="player-2" name="player-2"/></label>
+            <button type="submit"><span class="material-icons" id="check-options"> check_circle </span></input></form>
+          </form>
+          <button class="close"><span>&times;</span></button>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

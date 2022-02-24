@@ -1,46 +1,167 @@
 body {
-    height: 100vh;
-    background: radial-gradient(slategray, slategray, darkslategray);
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin:0;
-} 
+  height: 100vh;
+  background: radial-gradient(slategray, slategray, darkslategray);
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 
 h1 {
-    color: gold;
-    text-shadow: 2px 2px 3px darkslategray, -2px -2px 3px darkslategray;
-    text-decoration: double underline 2px;
-    font-size: clamp(15px, 10vmin, 60px);
-    margin: 0 0 2vmin 0;
+  color: gold;
+  text-shadow: 2px 2px 3px darkslategray, -2px -2px 3px darkslategray;
+  text-decoration: double underline 2px;
+  font-size: clamp(15px, 10vmin, 60px);
+  margin: 0 0 2vmin 0;
 }
 
 main {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    background-color: goldenrod;
-    width: clamp(50px, 84vmin, 450px);
-    aspect-ratio: 1;
-    color: gold;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: goldenrod;
+  width: clamp(50px, 84vmin, 450px);
+  aspect-ratio: 1;
+  color: gold;
 }
 
 main > div {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background: darkslategray;
-    font-size: 10vmin ;
-    margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: darkslategray;
+  font-size: 10vmin;
+  margin: 1px;
 }
 
 @keyframes victory {
-    0% { transform: rotate3d(1,0,0,180deg); }
-    100% { transform: rotate3d(1,0,0,360deg); }
+  0% {
+    transform: rotate3d(1, 0, 0, 180deg);
+  }
+  100% {
+    transform: rotate3d(1, 0, 0, 360deg);
+  }
 }
 
 .win {
-    animation: victory 0.5s;
+  animation: victory 0.5s;
+}
+
+.players {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  color: gold;
+}
+
+.game-wrapper {
+  width: min-content;
+}
+
+button {
+  background: darkslategray;
+  color: gold;
+  border-color: black;
+}
+
+.options {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+/* 
+MODAL (copy-cut from w3schools)
+*/
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  background-color: darkslategray;
+  color: pink;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px dashed pink;
+  border-radius: 10px;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+.modal-content form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.modal-content input {
+  background: slategray;
+  color: pink;
+  border-color: slategray;
+  border-width: 2px;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: lightgray;
+}
+
+.modal-content form button {
+  border: none;
+  outline: none;
+}
+
+.modal-content form span {
+  padding: 0;
+  color: #aaa;
+}
+
+.modal-content form button:hover span,
+.modal-content form button:focus span {
+  cursor: pointer;
+  color: pink;
+}
+
+.modal-content form button:focus #check-options {
+  outline: 1px dotted;
+}
+.modal-content form button {
+  outline: none;
+}
+
+/* The Close Button */
+.close {
+  border: none;
+  color: #aaa;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: pink;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close:focus {
+  outline: 1px dotted;
 }
