@@ -106,16 +106,21 @@ const gameFlow = (() => {
       [0, 4, 8],
       [2, 4, 6],
     ];
-    winCombinations.forEach((a) => {
-      if (a.every((el) => Gameboard.getBoard()[el] == marker)) {
-        document.querySelectorAll("main div").forEach((n, idx) => {
-          if (a.includes(idx)) {
-            n.classList.toggle("win");
+    winCombinations.forEach((winningComb) => {
+      if (winningComb.every((index) => Gameboard.getBoard()[index] == marker)) {
+        document.querySelectorAll("main div").forEach((cell, idx) => {
+          if (winningComb.includes(idx)) {
+            cell.classList.add("win");
             finishedGame = true;
-          }
+          } 
         });
-      }
+      } 
     });
+
+    if (!finishedGame && !Gameboard.getBoard().some(n => n == "⋅")) {
+        alert(currentPlayer.getName());
+        finishedGame = true;
+    }
   };
 
   return {
@@ -165,9 +170,17 @@ modalForm.addEventListener('submit', submitForm);
 
 function submitForm(e) {
     event.preventDefault();
+    span.click();
     const player1Name = e.target["player-1"].value;
     const player2Name = e.target["player-2"].value;
 
     gameFlow.player1.setName(player1Name);
     gameFlow.player2.setName(player2Name);
+
+    const player1Paragraph = document.querySelector('#player-1-name');
+    player1Paragraph.textContent = player1Name + " (X)";
+    const player2Paragraph = document.querySelector('#player-2-name');
+    player2Paragraph.textContent = player2Name + " (O)";
 }
+
+

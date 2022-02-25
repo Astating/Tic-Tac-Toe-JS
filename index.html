@@ -15,13 +15,13 @@
     <h1>Tic Tac Toe</h1>
     <div class="game-wrapper">
       <header class="players">
-        <p>Bobittybubblebernard</p>
-        <p>Fred</p>
+        <p id="player-1-name">Player 1 (X)</p>
+        <p id="player-2-name">Player 2 (O)</p>
       </header>
       <main></main>
 
       <footer class="options">
-          <button>RESET</button>
+          <button>Reset</button>
           <!-- Trigger/Open The Modal -->
           <button id="myBtn">Options</button>
       </footer>
@@ -30,8 +30,8 @@
         <!-- Modal content -->
         <div class="modal-content">
           <form action="">
-            <label for="player-1">Player 1: <input type="text" maxlength="20" id="player-1" name="player-1"/></label>
-            <label for="player-2">Player 2: <input type="text" maxlength="20" id="player-2" name="player-2"/></label>
+            <label for="player-1">Player 1 (X): <input type="text" required maxlength="20" id="player-1" name="player-1" value="Bernard"/></label>
+            <label for="player-2">Player 2 (O): <input type="text" required maxlength="20" id="player-2" name="player-2" value="Gertrude"/></label>
             <button type="submit"><span class="material-icons" id="check-options"> check_circle </span></input></form>
           </form>
           <button class="close"><span>&times;</span></button>
