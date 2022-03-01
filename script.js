@@ -26,6 +26,22 @@ const Gameboard = (() => {
       parent.firstChild.remove();
     }
     _displayBoard();
+
+    if (gameFlow.currentPlayerIsAI()) {
+      const test = _board.reduce( function(indexArr, current, index) {
+        if(current == '⋅') {
+          indexArr.push(index);
+        }
+        return indexArr;
+      }, []);
+      const randomIndex = Math.floor(Math.random() * test.length);
+      console.log(test, test[randomIndex]);
+      setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+      setTimeout(() => {
+        document.querySelector(`#index-${test[randomIndex]}`).click();
+      }, 500);
+    }
+
   };
 
   const getBoard = () => [..._board];
@@ -53,27 +69,22 @@ const Gameboard = (() => {
       setCell(index, gameFlow.getCurrentPlayer());
       e.target.textContent = gameFlow.getCurrentPlayer();
       gameFlow.checkForWin(e.target.textContent);
-      
-    }
-    if (!gameFlow.isFinishedGame()) {
-      gameFlow.togglePlayer();
-      if (gameFlow.currentPlayerIsAI()) {
-        const test = _board.reduce( function(indexArr, current, index) {
-          if(current == '⋅') {
-            indexArr.push(index);
-          }
-          return indexArr;
-        }, []);
-        const randomIndex = Math.floor(Math.random() * test.length);
-        console.log(test, test[randomIndex]);
-        setCell(test[randomIndex], gameFlow.getCurrentPlayer());
-        setTimeout(() => {
-          document.querySelector(`#index-${test[randomIndex]}`).textContent = gameFlow.getCurrentPlayer();
-          gameFlow.checkForWin(gameFlow.getCurrentPlayer());
-          if (!gameFlow.isFinishedGame()) {
-            gameFlow.togglePlayer();
-          }
-        }, 500);
+      if (!gameFlow.isFinishedGame()) {
+        gameFlow.togglePlayer();
+        if (gameFlow.currentPlayerIsAI()) {
+          const test = _board.reduce( function(indexArr, current, index) {
+            if(current == '⋅') {
+              indexArr.push(index);
+            }
+            return indexArr;
+          }, []);
+          const randomIndex = Math.floor(Math.random() * test.length);
+          console.log(test, test[randomIndex]);
+          setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+          setTimeout(() => {
+            document.querySelector(`#index-${test[randomIndex]}`).click();
+          }, 800);
+        }
       }
     }
   }
@@ -228,6 +239,20 @@ function submitForm(e) {
     player1Paragraph.textContent = player1Name + " (X)";
     const player2Paragraph = document.querySelector('#player-2-name');
     player2Paragraph.textContent = player2Name + " (O)";
+
+    if (gameFlow.currentPlayerIsAI()) {
+      const test = Gameboard.getBoard().reduce( function(indexArr, current, index) {
+        if(current == '⋅') {
+          indexArr.push(index);
+        }
+        return indexArr;
+      }, []);
+      const randomIndex = Math.floor(Math.random() * test.length);
+      Gameboard.setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+      setTimeout(() => {
+        document.querySelector(`#index-${test[randomIndex]}`).click();
+      }, 500);
+    }
 }
 
 
