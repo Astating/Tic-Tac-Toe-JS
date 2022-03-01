@@ -165,6 +165,10 @@ MODAL (copy-cut from w3schools)
   color: #aaa;
 }
 
+.modal-content form input[type="checkbox"]:focus {
+  outline: 2px dotted;
+}
+
 .modal-content form button:hover span,
 .modal-content form button:focus span {
   cursor: pointer;

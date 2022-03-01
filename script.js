@@ -227,18 +227,20 @@ function submitForm(e) {
     const player1AI = e.target["player-1-AI?"].checked;
     const player2AI = e.target["player-2-AI?"].checked;
 
-
     gameFlow.player1.setName(player1Name);
     gameFlow.player1.setAI(player1AI);
 
     gameFlow.player2.setName(player2Name);
     gameFlow.player2.setAI(player2AI);
 
+    const robot1 =  player1AI ? " 🤖" : "" ;
+    const robot2 = player2AI ? "🤖 " : "" ;
+
 
     const player1Paragraph = document.querySelector('#player-1-name');
-    player1Paragraph.textContent = player1Name + " (X)";
+    player1Paragraph.textContent = player1Name + " (X)" + robot1;
     const player2Paragraph = document.querySelector('#player-2-name');
-    player2Paragraph.textContent = player2Name + " (O)";
+    player2Paragraph.textContent = robot2 + player2Name + " (O)";
 
     if (gameFlow.currentPlayerIsAI()) {
       const test = Gameboard.getBoard().reduce( function(indexArr, current, index) {
