@@ -32,6 +32,9 @@ const Gameboard = (() => {
 
   const _displayBoard = () => {
     const boardDiv = document.querySelector("main");
+    const output = document.createElement('output');
+    output.classList.add("display-none");
+    boardDiv.appendChild(output);
     getBoard().forEach((cell, idx) => {
       const div = document.createElement("div");
       div.textContent = cell;
@@ -45,12 +48,33 @@ const Gameboard = (() => {
   function updateCell(e) {
     const index = parseInt(e.target.id.match(/[0-9]/)[0]);
     if (gameFlow.isFinishedGame()) {
-      alert("blabliblu");
+      resetBoard();
     } else if (e.target.textContent == "⋅") {
       setCell(index, gameFlow.getCurrentPlayer());
       e.target.textContent = gameFlow.getCurrentPlayer();
       gameFlow.checkForWin(e.target.textContent);
+      
+    }
+    if (!gameFlow.isFinishedGame()) {
       gameFlow.togglePlayer();
+      if (gameFlow.currentPlayerIsAI()) {
+        const test = _board.reduce( function(indexArr, current, index) {
+          if(current == '⋅') {
+            indexArr.push(index);
+          }
+          return indexArr;
+        }, []);
+        const randomIndex = Math.floor(Math.random() * test.length);
+        console.log(test, test[randomIndex]);
+        setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+        setTimeout(() => {
+          document.querySelector(`#index-${test[randomIndex]}`).textContent = gameFlow.getCurrentPlayer();
+          gameFlow.checkForWin(gameFlow.getCurrentPlayer());
+          if (!gameFlow.isFinishedGame()) {
+            gameFlow.togglePlayer();
+          }
+        }, 500);
+      }
     }
   }
 
@@ -61,30 +85,38 @@ const Gameboard = (() => {
   };
 })();
 
-const Player = (sign, name) => {
+const Player = (sign, name, ai = false) => {
   let _sign = sign;
   let _name = name;
-
+  let _ai = ai;
+  
   const getName = () => _name;
   const setName = (newName) => _name = newName;
   const getSign = () => _sign;
+  const isAI = () => _ai;
+  const setAI = (trueorfalse) => _ai = trueorfalse;
 
-  return { getSign, getName, setName };
+  return { getSign, getName, setName, isAI, setAI };
 };
 
 const gameFlow = (() => {
-  const player1 = Player("X", "Player1");
-  const player2 = Player("O", "Player2");
+  const player1 = Player("X", "Player 1");
+  const player2 = Player("O", "Player 2");
 
   let currentPlayer = player1;
+  document.querySelector('#player-1-name').classList.add("active-player");
   let finishedGame = false;
 
   const getCurrentPlayer = () => {
     return currentPlayer.getSign();
   };
 
+  const currentPlayerIsAI = () => currentPlayer.isAI();
+
   function togglePlayer() {
     currentPlayer = currentPlayer == player1 ? player2 : player1;
+    document.querySelector('#player-1-name').classList.toggle("active-player");
+    document.querySelector('#player-2-name').classList.toggle("active-player");
   }
 
   function isFinishedGame() {
@@ -111,21 +143,25 @@ const gameFlow = (() => {
         document.querySelectorAll("main div").forEach((cell, idx) => {
           if (winningComb.includes(idx)) {
             cell.classList.add("win");
-            finishedGame = true;
-          } 
+          }
         });
+      finishedGame = true;
+      document.querySelector("output").classList.remove('display-none');
+      document.querySelector("output").textContent = `${currentPlayer.getName()} wins the game!!!`;
       } 
     });
 
     if (!finishedGame && !Gameboard.getBoard().some(n => n == "⋅")) {
-        alert(currentPlayer.getName());
-        finishedGame = true;
+      document.querySelector("output").classList.remove('display-none');
+      document.querySelector("output").textContent = `Hmmm... It's a... tie...`;
+      finishedGame = true;
     }
   };
 
   return {
     togglePlayer,
     getCurrentPlayer,
+    currentPlayerIsAI,
     checkForWin,
     isFinishedGame,
     restartGame,
@@ -141,6 +177,7 @@ document
 /* MODAL */
 // Get the modal
 var modal = document.getElementById("myModal");
+const winnerModal = document.querySelector("#winner-display");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -163,6 +200,9 @@ window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+  if (event.target == winnerModal) {
+    winnerModal.style.display = "none";
+  }
 };
 
 const modalForm = document.querySelector('.modal form');
@@ -173,9 +213,16 @@ function submitForm(e) {
     span.click();
     const player1Name = e.target["player-1"].value;
     const player2Name = e.target["player-2"].value;
+    const player1AI = e.target["player-1-AI?"].checked;
+    const player2AI = e.target["player-2-AI?"].checked;
+
 
     gameFlow.player1.setName(player1Name);
+    gameFlow.player1.setAI(player1AI);
+
     gameFlow.player2.setName(player2Name);
+    gameFlow.player2.setAI(player2AI);
+
 
     const player1Paragraph = document.querySelector('#player-1-name');
     player1Paragraph.textContent = player1Name + " (X)";
