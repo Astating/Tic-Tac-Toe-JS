@@ -11,6 +11,7 @@ TODOS:
 
 const Gameboard = (() => {
   let _board = new Array(9).fill("⋅");
+  let _clickAuthorised = true;
 
   const setCell = (index, marker) => {
     _board[index] = marker;
@@ -35,9 +36,10 @@ const Gameboard = (() => {
         return indexArr;
       }, []);
       const randomIndex = Math.floor(Math.random() * test.length);
-      console.log(test, test[randomIndex]);
       setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+      _clickAuthorised = false;
       setTimeout(() => {
+        _clickAuthorised = true;
         document.querySelector(`#index-${test[randomIndex]}`).click();
       }, 500);
     }
@@ -62,28 +64,32 @@ const Gameboard = (() => {
   _displayBoard();
 
   function updateCell(e) {
-    const index = parseInt(e.target.id.match(/[0-9]/)[0]);
-    if (gameFlow.isFinishedGame()) {
-      resetBoard();
-    } else if (e.target.textContent == "⋅") {
-      setCell(index, gameFlow.getCurrentPlayer());
-      e.target.textContent = gameFlow.getCurrentPlayer();
-      gameFlow.checkForWin(e.target.textContent);
-      if (!gameFlow.isFinishedGame()) {
-        gameFlow.togglePlayer();
-        if (gameFlow.currentPlayerIsAI()) {
-          const test = _board.reduce( function(indexArr, current, index) {
-            if(current == '⋅') {
-              indexArr.push(index);
-            }
-            return indexArr;
-          }, []);
-          const randomIndex = Math.floor(Math.random() * test.length);
-          console.log(test, test[randomIndex]);
-          setCell(test[randomIndex], gameFlow.getCurrentPlayer());
-          setTimeout(() => {
-            document.querySelector(`#index-${test[randomIndex]}`).click();
-          }, 800);
+    if (_clickAuthorised) {
+      const index = parseInt(e.target.id.match(/[0-9]/)[0]);
+      if (gameFlow.isFinishedGame()) {
+        resetBoard();
+      } else if (e.target.textContent == "⋅") {
+        setCell(index, gameFlow.getCurrentPlayer());
+        e.target.textContent = gameFlow.getCurrentPlayer();
+        gameFlow.checkForWin(e.target.textContent);
+        if (!gameFlow.isFinishedGame()) {
+          gameFlow.togglePlayer();
+          if (gameFlow.currentPlayerIsAI()) {
+            const test = _board.reduce( function(indexArr, current, index) {
+              if(current == '⋅') {
+                indexArr.push(index);
+              }
+              return indexArr;
+            }, []);
+            const randomIndex = Math.floor(Math.random() * test.length);
+            console.log(test, test[randomIndex]);
+            setCell(test[randomIndex], gameFlow.getCurrentPlayer());
+            _clickAuthorised=false;
+            setTimeout(() => {
+              _clickAuthorised = true;
+              document.querySelector(`#index-${test[randomIndex]}`).click();
+            }, 800);
+          }
         }
       }
     }
@@ -105,7 +111,7 @@ const Player = (sign, name, ai = false) => {
   const setName = (newName) => _name = newName;
   const getSign = () => _sign;
   const isAI = () => _ai;
-  const setAI = (trueorfalse) => _ai = trueorfalse;
+  const setAI = (trueOrFalse) => _ai = trueOrFalse;
 
   return { getSign, getName, setName, isAI, setAI };
 };
