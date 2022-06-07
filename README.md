@@ -1,6 +1,8 @@
 # Tic Tac Toe
 A project from [The Odin Project Curriculum](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/tic-tac-toe).
 
+**[PLAY IT!](https://astating.github.io/Tic-Tac-Toe-JS/)**<br><br>
+
 <details><summary><u>ASSIGNMENT</u></summary>
 <ol> <li> Set up your project with a HTML, CSS and Javascript files and get the Git repo all set up.
 <li>You’re going to store the gameboard as an array inside of a Gameboard object, so start there! Your players are also going to be stored in objects… and you’re probably going to want an object to control the flow of the game itself.
@@ -16,7 +18,19 @@ A project from [The Odin Project Curriculum](https://www.theodinproject.com/path
 <li>Once you’ve gotten that, work on making the computer smart. It is possible to create an unbeatable AI using the minimax algorithm (read about it here, some googling will help you out with this one) 
 <li>If you get this running definitely come show it off in the chatroom. It’s quite an accomplishment!</ol>
 </details>
-<hr>
+<br><hr><br>
 
-## Project Diary:
-*SOON*
+
+I advanced a bit slowly on this project as it took time and I had many projects to complete at school.
+
+One day, I thought let's do quick and dirty (and complex and procedural and antipattern and trampling on OOP), I'll fix it later.
+
+Now getting back to it three months later, I never fixed it.
+
+It's working as intended though, with some level of finition.
+
+But the code is my worst spaghetti hell so far. That's not an understatement, and if there are modules and factory functions on paper... they're disfigured beyond recognition.
+
+Harsh but true. I'm posting it as is and moving on.
+
+That would be a good training in refactoring for later, if I ever get to work at it again. What's sure, though, is that I'll learn from my mistakes for the NEXT project, and try to apply some of what I've learned in between, heeding in particular to Sandi Metz's warnings and tips in her book *Practical Object-Oriented Design: An Agile Primer Using Ruby* (aka *POODR*).
