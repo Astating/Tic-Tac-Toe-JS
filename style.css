@@ -94,6 +94,10 @@ main > div {
   width: min-content;
 }
 
+footer {
+  padding: 10px;
+}
+
 button {
   background: darkslategray;
   color: gold;
